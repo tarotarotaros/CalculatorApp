@@ -2,11 +2,16 @@
 var prevSymbol = "";
 var prevNumber = null;
 var prevprevNumber = null;
+var _inputNumberFlag = true;
 
 // 共通のクラスを持つボタンにクリックイベントの関数を定義
 var numberButtons = document.querySelectorAll('.number');
 var symbolButtons = document.querySelectorAll('.symbol');
 var equalButton = document.querySelector('.equal');
+var clearButton = document.querySelector('.clear');
+var plusMinusButton = document.querySelector('.plmi');
+var percentButton = document.querySelector('.percent');
+
 
 // ボタンがクリックされた時に実行される関数
 function clickNumber() {
@@ -51,6 +56,48 @@ function clickEqual() {
   prevprevNumber = result;
 }
 
+function clickClear() {
+  displayResult(0);
+  resetField();
+}
+
+function clickPlusMinus() {
+
+  _inputNumberFlag = false;
+  if (prevprevNumber == null) {
+    // 1ども何も入力していない
+    return;
+  }
+  else if (prevprevNumber != null && prevNumber == null) {
+    // 
+    prevprevNumber = -1 * prevprevNumber;
+    displayResult(prevprevNumber);
+  }
+  else {
+    prevNumber = -1 * prevNumber;
+    displayResult(prevNumber);
+  }
+
+}
+
+function clickPercent() {
+  _inputNumberFlag = false;
+
+  if (prevprevNumber == null) {
+    // 1ども何も入力していない
+    return;
+  }
+  else if (prevprevNumber != null && prevNumber == null) {
+    // 
+    prevprevNumber = 0.01 * prevprevNumber;
+    displayResult(prevprevNumber);
+  }
+  else {
+    prevNumber = 0.01 * prevNumber;
+    displayResult(prevNumber);
+  }
+}
+
 function displayResult(text) {
   var displayElement = document.getElementById('display');
   displayElement.value = text;
@@ -66,19 +113,21 @@ function calculate(symbol, firstNumber, secondNumber) {
   else if (symbol === "-") {
     result = firstNumber - secondNumber;
   }
-  else if (symbol === "/") {
+  else if (symbol === "÷") {
     result = firstNumber / secondNumber;
   }
-  else if (symbol === "*") {
+  else if (symbol === "×") {
     result = firstNumber * secondNumber;
   }
+  console.log(`${firstNumber}${symbol}${secondNumber}=${result}`);
   return result;
 }
 
 function resetField() {
-  var prevSymbol = "";
-  var prevNumber = null;
-  var prevprevNumber = null;
+  prevSymbol = "";
+  prevNumber = null;
+  prevprevNumber = null;
+  _inputNumberFlag = true;
 }
 
 // 各ボタンにクリックイベントを追加
@@ -93,3 +142,6 @@ for (var i = 0; i < symbolButtons.length; i++) {
 }
 
 equalButton.addEventListener('click', clickEqual);
+clearButton.addEventListener('click', clickClear);
+plusMinusButton.addEventListener('click', clickPlusMinus);
+percentButton.addEventListener('click', clickPercent);
