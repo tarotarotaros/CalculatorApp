@@ -1,4 +1,4 @@
-class CalculatorModel {
+export class CalculatorModel {
 
     #firstNumber;
     #secondNumber;
@@ -63,6 +63,11 @@ class CalculatorModel {
     // メッセージの表示
     GetDisplayNumberText() {
         if (this.#secondNumber === null) {
+
+            if (this.#firstNumber === null) {
+                return '0';
+            }
+
             return String(this.#firstNumber);
         }
         else {
@@ -102,5 +107,3 @@ class CalculatorModel {
         return text === '+' || text === '-' || text === '÷' || text === '×';
     }
 }
-
-module.exports = CalculatorModel;

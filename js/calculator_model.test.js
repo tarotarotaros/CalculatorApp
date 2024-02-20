@@ -1,5 +1,5 @@
 
-const CalculatorModel = require('./calculator_model');
+const CalculatorModel = require('./calculator_model.js');
 
 describe('CalculatorModelTest', () => {
   
@@ -129,6 +129,10 @@ describe('CalculatorModelTest', () => {
     let in4inpin3cm = in4inpcm.InputCharacter('3');
     let in4inpin3ChangeSigncm = in4inpin3cm.ChangePercent();
     expect(in4inpin3ChangeSigncm.GetDisplayNumberText()).toBe('0.03');
+  });
+  test('getDisplay_何も入力されていなければ0', ()=>{  
+    var cm = new CalculatorModel();
+    expect(cm.GetDisplayNumberText()).toBe('0');
   });
 
 });
