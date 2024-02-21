@@ -1,5 +1,4 @@
-
-const CalculatorModel = require('./calculator_model.js');
+import { CalculatorModel } from '../js/calculator_model.js';
 
 describe('CalculatorModelTest', () => {
   
