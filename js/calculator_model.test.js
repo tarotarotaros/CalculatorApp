@@ -129,9 +129,37 @@ describe('CalculatorModelTest', () => {
     let in4inpin3ChangeSigncm = in4inpin3cm.ChangePercent();
     expect(in4inpin3ChangeSigncm.GetDisplayNumberText()).toBe('0.03');
   });
+
   test('getDisplay_何も入力されていなければ0', ()=>{  
     var cm = new CalculatorModel();
     expect(cm.GetDisplayNumberText()).toBe('0');
+  });
+
+  test('getDisplay_1をいれてドットを入れて3を入れるとと表示が1.3になる', ()=>{  
+    var cm = new CalculatorModel();
+    let in1cm = cm.InputCharacter('1');
+    let in1indcm = in1cm.InputDot();
+    let in1indin3cm = in1indcm.InputCharacter('3');
+    expect(in1indin3cm.GetDisplayNumberText()).toBe('1.3');
+  });
+
+  test('EnterEqual_1をいれてドットを入れて+を入れて3を入れるて=すると結果4になる', ()=>{  
+    var cm = new CalculatorModel();
+    let in1cm = cm.InputCharacter('1');
+    let in1indcm = in1cm.InputDot();
+    let in1indinpcm = in1indcm.InputCharacter('+');
+    let in1indinpin3cm = in1indinpcm.InputCharacter('3');
+    expect(in1indinpin3cm.EnterEqual()).toBe('4');
+  });
+
+  test('EnterEqual_1+1.3=2.3になる', ()=>{  
+    var cm = new CalculatorModel();
+    let in1cm = cm.InputCharacter('1');
+    let in1inpcm = in1cm.InputCharacter('+');
+    let in1inpin1cm = in1inpcm.InputCharacter('1');
+    let in1inpin1indcm = in1inpin1cm.InputDot();
+    let in1inpin1indin3cm = in1inpin1indcm.InputCharacter('3');
+    expect(in1inpin1indin3cm.EnterEqual()).toBe('2.3');
   });
 
 });

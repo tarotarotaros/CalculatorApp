@@ -4,11 +4,13 @@ export class CalculatorModel {
     #secondNumber;
     #isFirstInputEnd;
     #symbol;
+    #inputDotFlag;
 
     constructor() {
         this.#firstNumber = null;
         this.#secondNumber = null;
         this.#isFirstInputEnd = false;
+        this.#inputDotFlag = false;
     }
 
     InputCharacter(inputText) {
@@ -25,8 +27,14 @@ export class CalculatorModel {
                 return this;
             }
             else {
-                this.#secondNumber = Number(String(this.#secondNumber) + inputText);
-                return this;
+                if (this.#inputDotFlag) {
+                    this.#secondNumber = Number(String(this.#secondNumber) + String('.') + inputText);
+                    return this;
+                } else {
+
+                    this.#secondNumber = Number(String(this.#secondNumber) + inputText);
+                    return this;
+                }
             }
         }
 
@@ -35,8 +43,15 @@ export class CalculatorModel {
             return this;
         }
         else {
-            this.#firstNumber = Number(String(this.#firstNumber) + String(inputText));
-            return this;
+
+            if (this.#inputDotFlag) {
+                this.#firstNumber = Number(String(this.#firstNumber) + String('.') + String(inputText));
+                return this;
+            } else {
+                this.#firstNumber = Number(String(this.#firstNumber) + String(inputText));
+                return this;
+            }
+
         }
     }
 
@@ -57,6 +72,11 @@ export class CalculatorModel {
         }
 
         this.#firstNumber = 0.01 * this.#firstNumber;
+        return this;
+    }
+
+    InputDot() {
+        this.#inputDotFlag = true;
         return this;
     }
 
