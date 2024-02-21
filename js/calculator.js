@@ -8,6 +8,7 @@ var equalButton = document.querySelector('.equal');
 var clearButton = document.querySelector('.clear');
 var plusMinusButton = document.querySelector('.plmi');
 var percentButton = document.querySelector('.percent');
+var dotButton = document.querySelector('.dot');
 
 // ボタンがクリックされた時に実行される関数
 function clickNumber() {
@@ -44,6 +45,12 @@ function clickPercent() {
   displayResult(_cm.GetDisplayNumberText());
 }
 
+function clickDot()
+{
+  _cm = _cm.InputDot();
+  displayResult(_cm.GetDisplayNumberText());
+}
+
 function displayResult(text) {
   var displayElement = document.getElementById('display');
   displayElement.value = text;
@@ -63,3 +70,4 @@ equalButton.addEventListener('click', clickEqual);
 clearButton.addEventListener('click', clickClear);
 plusMinusButton.addEventListener('click', clickPlusMinus);
 percentButton.addEventListener('click', clickPercent);
+dotButton.addEventListener('click', clickDot);
